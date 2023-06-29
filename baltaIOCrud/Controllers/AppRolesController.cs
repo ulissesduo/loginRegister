@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace baltaIOCrud.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AppRolesController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -19,13 +20,13 @@ namespace baltaIOCrud.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create() 
+        public IActionResult Add() 
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(IdentityRole model)
+        public async Task<IActionResult> Add(IdentityRole model)
         {
             if (!_roleManager.RoleExistsAsync(model.Name).GetAwaiter().GetResult())
             {

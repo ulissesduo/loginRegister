@@ -14,6 +14,7 @@ namespace baltaIOCrud.Data
         public DbSet<SalesLeadEntity> SalesLead { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<Category> Category { get; set; }
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
 
     }
 }

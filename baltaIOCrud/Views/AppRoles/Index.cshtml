@@ -1,5 +1,35 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityRole> //this is because we will show multiple record
+
 @{
+	ViewData["title"] = "Application Role";
 }
+
+<h1>View Role</h1>
+
+<p>
+	<a asp-action="Add">Create role</a>
+</p>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>@Html.DisplayNameFor(model=>model.Id)</th><!--display the ID data-->
+		</tr>
+
+		<tr>
+			<th>@Html.DisplayNameFor(model=>model.Name)</th><!--display the name data-->
+		</tr>
+		<tr></tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>@Html.DisplayFor(modelItem => item.Id)</td>
+				<td>@Html.DisplayFor(modelItem => item.Name)</td>
+
+			</tr>
+		}
+	</tbody>
+</table>

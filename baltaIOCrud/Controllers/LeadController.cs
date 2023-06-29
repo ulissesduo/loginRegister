@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace baltaIOCrud.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin, Sales")]
     public class LeadController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -21,6 +21,8 @@ namespace baltaIOCrud.Controllers
             _context = context;
         }
 
+
+        [Authorize(Roles = "Admin, Sales")]
         // GET: Lead
         public async Task<IActionResult> Index()
         {
@@ -29,6 +31,7 @@ namespace baltaIOCrud.Controllers
                           Problem("Entity set 'ApplicationDbContext.SalesLead'  is null.");
         }
 
+        [Authorize(Roles = "Admin, Sales")]
         // GET: Lead/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -47,6 +50,7 @@ namespace baltaIOCrud.Controllers
             return View(salesLeadEntity);
         }
 
+        [Authorize(Roles = "Admin, Sales")]
         // GET: Lead/Create
         public IActionResult Create()
         {
@@ -58,6 +62,7 @@ namespace baltaIOCrud.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Sales")]
         public async Task<IActionResult> Create([Bind("Id,Name,Login,Password,Email")] SalesLeadEntity salesLeadEntity)
         {
             if (ModelState.IsValid)
@@ -69,6 +74,7 @@ namespace baltaIOCrud.Controllers
             return View(salesLeadEntity);
         }
 
+        [Authorize(Roles = "Admin, Sales")]
         // GET: Lead/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -90,6 +96,7 @@ namespace baltaIOCrud.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Sales")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Login,Password,Email")] SalesLeadEntity salesLeadEntity)
         {
             if (id != salesLeadEntity.Id)
@@ -121,6 +128,7 @@ namespace baltaIOCrud.Controllers
         }
 
         // GET: Lead/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.SalesLead == null)
@@ -141,6 +149,7 @@ namespace baltaIOCrud.Controllers
         // POST: Lead/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.SalesLead == null)
