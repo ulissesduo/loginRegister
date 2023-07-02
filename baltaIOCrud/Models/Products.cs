@@ -22,7 +22,6 @@ namespace baltaIOCrud.Models
         public int StockQuantity { get; set; }
 
         public bool Available { get; set; }
-        
-
+       
     }
 }

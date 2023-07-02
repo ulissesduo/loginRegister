@@ -1,0 +1,16 @@
+﻿@model baltaIOCrud.Models.ProductViewModel
+<h1>
+
+    @ViewBag.UserId
+
+</h1>
+<h1>Available Products</h1>
+
+@foreach (var product in Model.Products)
+{
+    <div>
+        <h3>@product.Name</h3>
+        <p>Price: @product.Price</p>
+        <button onclick="location.href='@Url.Action("Buy", "Purchase", new { productId = product.Id })'">Buy</button>
+    </div>
+}

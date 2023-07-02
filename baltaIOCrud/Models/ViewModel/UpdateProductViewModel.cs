@@ -26,5 +26,6 @@ namespace baltaIOCrud.Models.ViewModel
         public string SelectedCategory { get; set; }
         //Display property
         public List<SelectListItem> TypeProductList { get; set; }
+
     }
 }
