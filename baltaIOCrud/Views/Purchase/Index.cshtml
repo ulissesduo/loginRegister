@@ -13,4 +13,9 @@
         <p>Price: @product.Price</p>
         <button onclick="location.href='@Url.Action("Buy", "Purchase", new { productId = product.Id })'">Buy</button>
     </div>
+    <a asp-action="Buy" asp-route-id="@product.Id" class="btn btn-danger">teste</a>
+    <td><a href="Purchase/Buy/@product.Id" class="btn btn-primary">TESTE2</a></td>
+    <td><a asp-action="Buy" asp-controller="Purchase" asp-route-productId="@product.Id" class="btn btn-primary">TESTE3</a></td>
+
+
 }

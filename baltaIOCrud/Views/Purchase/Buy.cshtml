@@ -1,49 +1,9 @@
-﻿@model baltaIOCrud.Models.ViewModel.UpdateProductViewModel
+﻿@model baltaIOCrud.Models.ViewModel.UpdateStockQuantity
 
 <h1>Edit Product</h1>
 
 <form asp-action="Buy" method="post">
-	<input type="hidden" asp-for="Id" />
-
-    <dl class="row">
-        <dt class="col-sm-2">
-            Name
-        </dt>
-        <dd class="col-sm-10">
-            @if (Model.Name != null)
-            {
-                @Html.DisplayFor(model => model.Name)
-            }
-        </dd>
-        <dt class="col-sm-2">
-            Price
-        </dt>
-        <dd class="col-sm-10">
-            @if (Model.Price != null)
-            {
-                @Html.DisplayFor(model => model.Price)
-            }
-        </dd>
-        <dt class="col-sm-2">
-            Description
-        </dt>
-        <dd class="col-sm-10">
-            @if (Model.Description != null)
-            {
-                @Html.DisplayFor(model => model.Description)
-            }
-        </dd>
-        <dt class="col-sm-2">
-            Category
-        </dt>
-        <dd class="col-sm-10">
-            @if (Model.Category != null)
-            {
-                @Html.DisplayFor(model => model.Category)
-            }
-        </dd>
-    </dl>
-     
+	<input type="text" asp-for="Id" />
 
 	<div class="form-group">
 		<label asp-for="StockQuantity">Stock Quantity</label>
@@ -54,133 +14,15 @@
 	<button type="submit" class="btn btn-primary">Save</button>
 </form>
 
-
-
-@*<form asp-action="Buy" method="post">
-    <input type="hidden" asp-for="Id" />
-
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-
-    <div class="form-group">
-        <label asp-for="StockQuantity">Stock Quantity</label>
-        <input asp-for="StockQuantity" class="form-control" />
-        <span asp-validation-for="StockQuantity" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>*@
-
-
-
-
-
-
-
-
-
-
-@{
-    ViewData["Title"] = "Buy";
-}
-
 @*
-<h1>Buy</h1>
+<form method="post" action="@Url.Action("Buy", "Purchase")">
+	@Html.AntiForgeryToken()
+	<input type="text" asp-for="Id" />
+	<div class="form-group">
+		<label for="StockQuantity">Stock Quantity:</label>
+		<input type="number" id="StockQuantity" name="StockQuantity" class="form-control" />
+		@Html.ValidationMessageFor(model => model.StockQuantity)
+	</div>
 
-<div>
-    <h4>Products</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StockQuantity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StockQuantity)
-        </dd>
-
-        <dl class="row">
-            <!-- ...other fields... -->
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Available)
-            </dt>
-            <dd class="col-sm-10">
-                @if (Model.StockQuantity > 0)
-                {
-                    <span>Available</span>
-                }
-                else
-                {
-                    <span>Not Available</span>
-                }
-            </dd>
-            <!-- ...other fields... -->
-        </dl>
-    </dl>
-</div>
-<div>
-    <a class="btn btn-primary" asp-action="Index" asp-route-id="@Model?.Id">Add to Cart</a> |
-    <a class="btn btn-primary" asp-controller="Purchase" asp-action="ConfirmBuy" >Add to Cart</a> |
-    <a class="btn btn-primary" asp-controller="Products" asp-action="Edit" asp-route-productId="@Model?.Id">Add to Cart</a> |
-
-
-    <a asp-action="Index">Back to List</a>
-
-    <form asp-action="Buy" method="post">
-
-     <div class="form-group">
-        <label asp-for="StockQuantity">Stock Quantity</label>
-        <input asp-for="StockQuantity" class="form-control" />
-        <span asp-validation-for="StockQuantity" class="text-danger"></span>
-    </div>
-
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
-
-</div>*@
+	<button type="submit" class="btn btn-primary">Buy</button>
+</form>*@

@@ -47,6 +47,7 @@ namespace baltaIOCrud.Controllers
                 Description = model.Description,
                 Category = selectCategory,
                 StockQuantity = model.StockQuantity,
+                Available = true,
             };
 
             await _context.AddAsync(products);//add object to my database

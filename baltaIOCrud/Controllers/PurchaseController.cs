@@ -20,10 +20,13 @@ namespace baltaIOCrud.Controllers
             _userManager = userManager;
         }
 
-
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
+            if (user == null) 
+            {
+                return NotFound();
+            }
             var userId = user.Id;
             ViewBag.UserId = userId;
 
@@ -47,35 +50,43 @@ namespace baltaIOCrud.Controllers
                 // Product not found, handle the error
                 return NotFound();
             }
-            var viewModel = new UpdateProductViewModel
+
+            var viewModel = new UpdateStockQuantity
             {
-                Id = product.Id,
-                Name = product.Name,
-                Price = product.Price,
-                Description = product.Description,
-                Category = product.Category,
-                StockQuantity = product.StockQuantity,
-                Available = product.Available,
+                Id = productId,//get product id to update correctly
+                StockQuantity = product.StockQuantity
             };
+
             return View(viewModel);
         }
+
         [HttpPost]
-        public async Task<IActionResult> Buy(UpdateStockQuantity model)
+        public async Task<IActionResult> Buy(UpdateStockQuantity model, Guid Id)
         {
-            var product = await _context.Products.FindAsync(model.Id);
-            if (product != null)
+            if (!ModelState.IsValid)
             {
-   
-
-                product.StockQuantity = model.StockQuantity;
-
-                await _context.SaveChangesAsync();
-
                 return RedirectToAction("Index");
             }
-
+            var product = await _context.Products.FindAsync(Id);
+            if (product != null)
+            {
+                if (model.StockQuantity > product.StockQuantity)
+                {
+                    ModelState.AddModelError("StockQuantity", "Invalid stock quantity");
+                    return View(model);
+                }
+                product.StockQuantity -= model.StockQuantity;
+                if (product.StockQuantity == 0) 
+                {
+                    product.Available = false;
+                }
+                _context.Update(product);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
             return RedirectToAction("Index");
         }
+
     }
 }
 
