@@ -36,6 +36,21 @@ namespace baltaIOCrud.Controllers
             return View(viewModel);
         }
 
+        public async Task CreatePurchase(string userId, Guid productId, string productName, int quantity, decimal price)
+        {
+            var purchase = new Purchase
+            {
+                Id = Guid.NewGuid(),
+                CustomerId = userId,
+                ProductId = productId,
+                ProductName = productName,
+                Quantity = quantity,
+                Price = price
+            };
+            _context.Purchases.Add(purchase);
+            await _context.SaveChangesAsync();
+        }
+
         [HttpGet]
         public async Task<IActionResult> Buy(Guid productId)
         {
@@ -63,6 +78,8 @@ namespace baltaIOCrud.Controllers
         [HttpPost]
         public async Task<IActionResult> Buy(UpdateStockQuantity model, Guid Id)
         {
+            var user = await _userManager.GetUserAsync(User);
+            var userId = user.Id;
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Index");
@@ -79,14 +96,15 @@ namespace baltaIOCrud.Controllers
                 if (product.StockQuantity == 0) 
                 {
                     product.Available = false;
+                   
                 }
                 _context.Update(product);
                 await _context.SaveChangesAsync();
+                await CreatePurchase(userId, product.Id, product.Name, model.StockQuantity, product.Price);
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
         }
-
     }
 }
 

@@ -1,9 +1,9 @@
 ﻿@model baltaIOCrud.Models.ProductViewModel
-<h1>
+@*<h1>
 
     @ViewBag.UserId
 
-</h1>
+</h1>*@
 <h1>Available Products</h1>
 
 @foreach (var product in Model.Products)
@@ -11,11 +11,9 @@
     <div>
         <h3>@product.Name</h3>
         <p>Price: @product.Price</p>
-        <button onclick="location.href='@Url.Action("Buy", "Purchase", new { productId = product.Id })'">Buy</button>
+        <p>Quantity: @product.StockQuantity</p>
+        <p>@product.Available</p>
+        @*<button onclick="location.href='@Url.Action("Buy", "Purchase", new { productId = product.Id })'">Buy</button>*@
+        <td><a asp-action="Buy" asp-controller="Purchase" asp-route-productId="@product.Id" class="btn btn-primary">Buy</a></td>
     </div>
-    <a asp-action="Buy" asp-route-id="@product.Id" class="btn btn-danger">teste</a>
-    <td><a href="Purchase/Buy/@product.Id" class="btn btn-primary">TESTE2</a></td>
-    <td><a asp-action="Buy" asp-controller="Purchase" asp-route-productId="@product.Id" class="btn btn-primary">TESTE3</a></td>
-
-
 }

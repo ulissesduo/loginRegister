@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace baltaIOCrud.Models
 {
@@ -22,6 +23,6 @@ namespace baltaIOCrud.Models
         public int StockQuantity { get; set; }
 
         public bool Available { get; set; }
-       
+        
     }
 }
