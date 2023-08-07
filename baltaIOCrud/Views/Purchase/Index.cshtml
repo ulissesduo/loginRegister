@@ -15,5 +15,6 @@
         <p>@product.Available</p>
         @*<button onclick="location.href='@Url.Action("Buy", "Purchase", new { productId = product.Id })'">Buy</button>*@
         <td><a asp-action="Buy" asp-controller="Purchase" asp-route-productId="@product.Id" class="btn btn-primary">Buy</a></td>
+        <td><a asp-action="DisplayItems" asp-controller="Cart" asp-route-Id="@product.Id" class="btn btn-secondary">Add To Cart</a></td>
     </div>
 }

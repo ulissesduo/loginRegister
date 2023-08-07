@@ -1,0 +1,65 @@
+﻿@*@model baltaIOCrud.Models.Products
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>SalesLeadEntity</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StockQuantity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StockQuantity)
+        </dd>
+
+
+    </dl>
+</div>
+<div>
+
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+*@
+
+
+
+
+
+@model baltaIOCrud.Models.ViewModel.CartViewModel
+
+<h1>Cart</h1>
+
+@if (Model.Items.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Items)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.StockQuantity</td>
+                    <td>@product.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>Total Quantity: @Model.TotalQuantity</p>
+    <p>Total Price: @Model.TotalPrice</p>
+}
+else
+{
+    <p>No items in the cart.</p>
+}
